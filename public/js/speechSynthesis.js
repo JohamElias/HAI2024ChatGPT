@@ -1,10 +1,32 @@
+import * as buttonBehavior from "./buttonBehavior.js";
 const synthetizer = window.speechSynthesis;
 let voices = [];
 let pitch = 1.0;
 let rate = 1.0;
 export let selected_voice;
+let selected_language="es"
 document.body.onload = () =>{
-    let temporal_voices = synthetizer.getVoices();
+    voices = synthetizer.getVoices();
+    if (voices.length < 1) {
+        console.log("Tu navegador no tiene voces disponibles.");
+        return -1;
+    } else {
+        // Seleccionar la voz adecuada según el idioma
+        if (selected_language === "es") {
+            console.log("Voz en español");
+            selected_voice = voices.find(voice => voice.lang.includes("US"));
+        } else if (selected_language === "ja") {
+            console.log("Voz en japonés");
+            selected_voice = voices.find(voice => voice.lang.includes("JA"));
+        }
+        if (!selected_voice) {
+            console.log("No se encontró una voz para el idioma seleccionado.");
+            return -1;
+        }
+    }
+}
+/*
+let temporal_voices = synthetizer.getVoices();
     for(let voice of temporal_voices){
         if(voice.lang.includes("es")>0){
             voices.push(voice);
@@ -29,8 +51,7 @@ document.body.onload = () =>{
             selected_voice = voices[0]
         }
     }
-
-}
+*/
 
 let onendSynthetizer = console.log;
 
@@ -83,6 +104,47 @@ export const change_rate = (value) => {
         rate = 2.0
     }else{
         rate = value;
+    }
+}
+
+// Event listener para el cambio en el combo box
+document.getElementById("combo-lang").addEventListener("change", function() {
+    if (this.value === "1") {
+        console.log("Español");
+        selected_language = "es";
+        configurarVoz();
+    } else if (this.value === "2") {
+        console.log("Japonés");
+        selected_language = "ja";
+        configurarVoz();
+    }
+    
+});
+
+function cargarVoces() {
+    voices = synthetizer.getVoices();
+    if (voices.length < 1) {
+        console.log("Tu navegador no tiene voces disponibles.");
+        return -1;
+    } else {
+        // Seleccionar la voz adecuada según el idioma
+        if (selected_language === "es") {
+            selected_voice = voices.find(voice => voice.lang.includes("es"));
+        } else if (selected_language === "ja") {
+            selected_voice = voices.find(voice => voice.lang.includes("ja"));
+        }
+        if (!selected_voice) {
+            console.log("No se encontró una voz para el idioma seleccionado.");
+            return -1;
+        }
+    }
+}
+
+function configurarVoz() {
+    cargarVoces();
+    if (!selected_voice) {
+        console.log("No se pudo configurar la voz.");
+        return -1;
     }
 }
 

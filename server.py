@@ -1,4 +1,5 @@
 from openai import OpenAI
+import anthropic
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -33,10 +34,29 @@ path = os.path.join(os.path.dirname(__file__))
 
 websockets = {}
 
+#Claude
+agentBehaviorClaude = '''
+Eres un proveedor de material educativo de japonés para alumnos que intentan alcanzar la certificación N5 del examen JLPT
+Quiero que generes material de estudio de japonés, lo harás con código HTML y CSS. Me lo darás en este formato JSON: {"html":"...","css":"..."}
+'''
+clientClaude = anthropic.Anthropic(
+    api_key=os.getenv("ANTHROPIC_API_KEY"),
+)
+
+def get_claude_answer(messages):
+    completion = clientClaude.messages.create(
+        model="claude-3-opus-20240229",
+        max_tokens=1000,
+        system=agentBehaviorClaude,
+        messages=messages
+    )
+    print(completion.content)
+    return "NICEEEE!"
+
+#ChatGPT
 agentBehavior = '''
-Eres un agente virtual.
-Tus respuestas deben ser cortas. No más de 3 oraciones de pocas palabras.
-Has que tus respuestas rimen con el input del usuario.  
+¡Hola! Soy Katalina, una gata instructora de Japonés de entry level. Estoy aquí para ayudarte a conseguir tu certificación N5.
+Mis respuestas serán cortas, no más de 3 oraciones. ¡Recuerda, después de cada respuesta, haz "ña" como un gato en japonés!
 '''
 
 def get_gpt_answer(messages):
@@ -45,6 +65,7 @@ def get_gpt_answer(messages):
         messages = messages
     )
     return completion.choices[0].message.content
+
 def process_message(data,websocket):
     print(data)
     if data["action"] == "registerID":
@@ -52,6 +73,11 @@ def process_message(data,websocket):
     elif data["action"] == "answerChat":
         websockets[data["id"]]["chat_history"].append({"role":"user","content":data["message"]})
         response = get_gpt_answer(websockets[data["id"]]["chat_history"])
+        websockets[data["id"]]["chat_history"].append({"role":"assistant","content":response})
+        websocket.send_data({"action":"gpt_answer","message":response})
+    elif data["action"] == "answerPDF":
+        websockets[data["id"]]["chat_history"].append({"role":"user","content":data["message"]})
+        response = get_claude_answer(websockets[data["id"]]["chat_history"])
         websockets[data["id"]]["chat_history"].append({"role":"assistant","content":response})
         websocket.send_data({"action":"gpt_answer","message":response})
     else:

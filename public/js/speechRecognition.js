@@ -3,10 +3,10 @@ let debug = false;
 let recognition;
 let process_recognition = data => console.log(data);
 
-export const init_speech_recognition = () =>{
+export const init_speech_recognition = (lang) =>{
     recognition = new SpeechRecognition();
-    
-    recognition.lang = "es-MX";
+    console.log(lang);
+    recognition.lang = lang
     recognition.interimResults = false;
     recognition.continious = false;
 

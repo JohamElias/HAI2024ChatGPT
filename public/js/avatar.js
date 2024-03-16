@@ -12,9 +12,12 @@ const {
     Utils: { clamp },
 } = Kalidokit;
 
+let is_moving_mouth=false;
+
 window.lerp = lerp;
 // Url to Live2D
-const modelUrl = "../hiyori/models/hiyori/hiyori_pro_t10.model3.json";
+//const modelUrl = "../hiyori/models/hiyori/hiyori_pro_t10.model3.json";
+const modelUrl = "../hijiki/runtime/hijiki.model3.json";
 
 let currentModel, facemesh;
 
@@ -27,7 +30,7 @@ const videoElement = document.querySelector(".input_video"),
         view: document.getElementById("live2d"),
         autoStart: true,
         backgroundAlpha: 0,
-        backgroundColor: 0xffffff,
+        backgroundColor: 0x202b38,
         resizeTo: window,
     });
 
@@ -36,13 +39,13 @@ const videoElement = document.querySelector(".input_video"),
     currentModel.scale.set(0.4);
     currentModel.interactive = true;
     currentModel.anchor.set(0.5, 0.5);
-    currentModel.position.set(window.innerWidth * 0.5, window.innerHeight * 0.8);
+    currentModel.position.set(window.innerWidth * 0.7, window.innerHeight * 0.55);
 
     // Add events to drag model
     currentModel.on("pointerdown", (e) => {
         currentModel.offsetX = e.data.global.x - currentModel.position.x;
         currentModel.offsetY = e.data.global.y - currentModel.position.y;
-        currentModel.dragging = true;
+        currentModel.dragging = false;
     });
     currentModel.on("pointerup", (e) => {
         currentModel.dragging = false;
@@ -65,7 +68,7 @@ const videoElement = document.querySelector(".input_video"),
 })();
 
 const onResults = (results) => {
-    console.log(results);
+    console.log("Los resultados son: ",results);
     animateLive2DModel(results.multiFaceLandmarks[0]);
 };
 
@@ -150,10 +153,10 @@ const rigFace = (result, lerpAmount = 0.7) => {
         coreModel.setParameterValueById("ParamEyeROpen", stabilizedEyes.r);
 
         // // mouth
-        // coreModel.setParameterValueById(
-        //     "ParamMouthOpenY",
-        //     lerp(result.mouth.y, coreModel.getParameterValueById("ParamMouthOpenY"), 0.3)
-        // );
+        //coreModel.setParameterValueById(
+        //    "ParamMouthOpenY",
+        //    lerp(result.mouth.y, coreModel.getParameterValueById("ParamMouthOpenY"), 0.3)
+        //);
         // // Adding 0.3 to ParamMouthForm to make default more of a "smile"
         // coreModel.setParameterValueById(
         //     "ParamMouthForm",
@@ -162,13 +165,17 @@ const rigFace = (result, lerpAmount = 0.7) => {
     };
 };
 
+
+
 window.mover_boca = (x,y, lerpAmount = 0.7) => {
+
+
 
     const coreModel = currentModel.internalModel.coreModel;
 
     currentModel.internalModel.motionManager.update = (...args) => {
         // disable default blink animation
-        currentModel.internalModel.eyeBlink = undefined;
+        //currentModel.internalModel.eyeBlink = undefined;
 
         // coreModel.setParameterValueById(
         //     "ParamEyeBallX",
@@ -221,16 +228,22 @@ window.mover_boca = (x,y, lerpAmount = 0.7) => {
         // // eye blink
         // coreModel.setParameterValueById("ParamEyeLOpen", stabilizedEyes.l);
         // coreModel.setParameterValueById("ParamEyeROpen", stabilizedEyes.r);
-
+        /*coreModel.setParameterValueById(
+            "PARAM_MOUTH_OPEN_Y",
+            lerp(y, coreModel.getParameterValueById("PARAM_MOUTH_OPEN_Y"), 0.3)
+        );
+        */
         // mouth
         coreModel.setParameterValueById(
-            "ParamMouthOpenY",
+           "ParamMouthOpenY",
             lerp(y, coreModel.getParameterValueById("ParamMouthOpenY"), 0.3)
         );
+        //
         // Adding 0.3 to ParamMouthForm to make default more of a "smile"
-        coreModel.setParameterValueById(
-            "ParamMouthForm",
-            0.3 + lerp(x, coreModel.getParameterValueById("ParamMouthForm"), 0.3)
-        );
+        //coreModel.setParameterValueById(
+        //    "ParamMouthForm",
+        //    0.3 + lerp(x, coreModel.getParameterValueById("ParamMouthForm"), 0.3)
+        //);
+        
     };
 };

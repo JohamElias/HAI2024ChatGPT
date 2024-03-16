@@ -13,12 +13,23 @@
     <script src="https://cdn.jsdelivr.net/npm/pixi-live2d-display/dist/index.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/kalidokit@1.1/dist/kalidokit.umd.js"></script>
     <script src="js/main.js" type="module" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css">
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-    <canvas id="live2d"></canvas>  
-    <button id="BeginRecognition">Empezar reconocimiento</button>
-    <div id="TextDetection"></div>
-    <div id="GPTAnswer"></div>
+    <canvas id="live2d"></canvas> 
+    <h1 id="title">Katalina</h1>
+    <form action="" id="form-lang">
+        <label for="combo-lang">Select your language</label>
+        <select name="lang" id="combo-lang">
+            <option value="1">Español</option>
+            <option value="2">Japonés</option>
+        </select>
+    </form>
+    <button id="BeginRecognition"><i class="fa fa-microphone" style="font-size:48px;"></i></button>
+    <div id="chat-container"></div>
+    <div id="TextDetection" style="color: white;"></div>
+    <div id="GPTAnswer" style="color: white;"></div> 
 </body>
 </html>

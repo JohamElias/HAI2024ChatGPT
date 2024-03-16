@@ -29,8 +29,8 @@
     font-size: 18px;
     color: #333;
     position: absolute;
-    top: 300px;
-    right: 30px;
+    top: 400px;
+    left: 30px;
     width: 100px;
 }
 
@@ -39,3 +39,57 @@
     left:0px;
     top:0px;
 }
+
+#form-lang{
+    position: absolute;
+    top: 100px;
+    left: 30px;
+    padding: 10px 20px;
+    width: 250px;
+    font-size: 16px;
+}
+
+#select{
+    position: absolute;
+    top: 45px;
+    left: 30px;
+    width: 250px;
+    font-size: 16px;
+}
+
+#chat-container {
+    position: absolute;
+    top: 500px;
+    left: 30px;
+    width: 600px; /* Ajusta el ancho según tu diseño */
+    border: 1px solid #ccc;
+    padding: 10px;
+    overflow-y: auto; /* Habilita el desplazamiento vertical */
+    height: 300px; /* Ajusta la altura según tu diseño */
+  }
+  
+.mensaje-emisor {
+    background-color: #DCF8C6; /* Color de fondo para mensajes del emisor */
+    color: #333; /* Color de texto */
+    padding: 5px;
+    margin-bottom: 5px;
+    border-radius: 5px; /* Bordes redondeados */
+  }
+  
+ .mensaje-receptor {
+    background-color: #E5E5EA; /* Color de fondo para mensajes del receptor */
+    color: #333; /* Color de texto */
+    padding: 5px;
+    margin-bottom: 5px;
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+#title{
+    position: absolute;
+}
+
+/*
+body{
+    background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/f849f1e6-b991-4b89-bd9b-7b86ae209054/d875sz8-2596c8b2-55a4-42c1-a54b-c0da91087c42.png/v1/fill/w_1024,h_576,q_75,strp/academia_ninja_naruto_by_lwisf3rxd-d875sz8.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwic3ViIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl0sIm9iaiI6W1t7InBhdGgiOiIvZi9mODQ5ZjFlNi1iOTkxLTRiODktYmQ5Yi03Yjg2YWUyMDkwNTQvZDg3NXN6OC0yNTk2YzhiMi01NWE0LTQyYzEtYTU0Yi1jMGRhOTEwODdjNDIucG5nIiwid2lkdGgiOiI8PTEwMjQiLCJoZWlnaHQiOiI8PTU3NiJ9XV19.8eX4uxD86YwCEe_It2T24xTDQ6mOqosnuQashYzBTnM");
+}
+*/
