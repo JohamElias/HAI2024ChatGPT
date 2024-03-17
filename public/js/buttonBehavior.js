@@ -1,6 +1,7 @@
 import * as ws from "./webSocketConnection.js";
 import * as speechRecognition from "./speechRecognition.js";
 import * as synthetizer from "./speechSynthesis.js"
+import sendPDFRequest from "./pdf.js"
 
 speechRecognition.enable_debug();
 
@@ -54,7 +55,10 @@ const recognition_process = data =>{
     if(data.includes("pdf") || data.includes("material")){
         //generate_pdf(data)
         stop_recognition();
-        ws.send({"action":"answerPDF",message:`Quiero que generes material de estudio de japonés sobre lo que solicita en la siguiente solicitud, lo harás con código HTML y CSS. Me lo darás en este formato JSON: {"html":"...","css":"..."} . Solo quiero que me devulvas ese JSON, no mandes otra cosa más. Solicitud: ${data}`});
+        ws.send({"action":"answerPDF",message:`Quiero que generes material de estudio de japonés sobre lo que solicita en la siguiente solicitud, lo harás con código HTML y CSS. Me lo darás en este formato JSON: {"content":"...","styles":"..."} . Solo quiero que me devulvas ese JSON, no mandes otra cosa más. Sin saltos de linea. Este es un ejemplo del formato necesitado:{
+            "content": "<div class="container"><header><h1>Bienvenido al Servicio de PDF</h1></header><p>Este es un ejemplo de HTML</p><p>Recuerda que los estilos</p><footer><p>Generado por tu servicio de PDF</p></footer></div>",
+            "styles": "body { font-family: 'Arial', sans-serif; background-color: #f7f7f7; color: #333; margin: 50px; } header { text-align: center; margin-bottom: 20px; } }"
+        } Solicitud: ${data}`});
     }else{
         stop_recognition();
         ws.send({"action":"answerChat",message:data});
@@ -71,10 +75,16 @@ let process_message = (message)=>{
         //document.getElementById("GPTAnswer").innerText = process_message.message;
         synthetizer.say(process_message.message); 
         is_speaking = true;
-        speech_random(0,3);
+        speech_random(0,0);
     }else if(process_message.action == "answerPDF"){
+        synthetizer.change_pitch(1.5);
+        agregarMensaje("Se está generando su material","receptor")
+        synthetizer.say("Se está generando su material"); 
+        is_speaking = true;
+        speech_random(0,0);
         console.log("Lo solicitado:");
-        console.log(process_message);
+        console.log(process_message.message);
+        sendPDFRequest(process_message.message)
     }
 }
 

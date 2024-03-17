@@ -14,10 +14,10 @@ document.body.onload = () =>{
         // Seleccionar la voz adecuada según el idioma
         if (selected_language === "es") {
             console.log("Voz en español");
-            selected_voice = voices.find(voice => voice.lang.includes("US"));
+            selected_voice = voices.find(voice => voice.lang.includes("es-US"));
         } else if (selected_language === "ja") {
             console.log("Voz en japonés");
-            selected_voice = voices.find(voice => voice.lang.includes("JA"));
+            selected_voice = voices.find(voice => voice.lang.includes("ja"));
         }
         if (!selected_voice) {
             console.log("No se encontró una voz para el idioma seleccionado.");
@@ -129,9 +129,9 @@ function cargarVoces() {
     } else {
         // Seleccionar la voz adecuada según el idioma
         if (selected_language === "es") {
-            selected_voice = voices.find(voice => voice.lang.includes("es"));
+            selected_voice = voices.find(voice => voice.lang.includes("US"));
         } else if (selected_language === "ja") {
-            selected_voice = voices.find(voice => voice.lang.includes("ja"));
+            selected_voice = voices.find(voice => voice.lang.includes("JA"));
         }
         if (!selected_voice) {
             console.log("No se encontró una voz para el idioma seleccionado.");

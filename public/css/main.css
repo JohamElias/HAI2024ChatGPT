@@ -59,7 +59,7 @@
 
 #chat-container {
     position: absolute;
-    top: 500px;
+    top: 380px;
     left: 30px;
     width: 600px; /* Ajusta el ancho según tu diseño */
     border: 1px solid #ccc;
@@ -87,9 +87,3 @@
 #title{
     position: absolute;
 }
-
-/*
-body{
-    background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/f849f1e6-b991-4b89-bd9b-7b86ae209054/d875sz8-2596c8b2-55a4-42c1-a54b-c0da91087c42.png/v1/fill/w_1024,h_576,q_75,strp/academia_ninja_naruto_by_lwisf3rxd-d875sz8.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwic3ViIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl0sIm9iaiI6W1t7InBhdGgiOiIvZi9mODQ5ZjFlNi1iOTkxLTRiODktYmQ5Yi03Yjg2YWUyMDkwNTQvZDg3NXN6OC0yNTk2YzhiMi01NWE0LTQyYzEtYTU0Yi1jMGRhOTEwODdjNDIucG5nIiwid2lkdGgiOiI8PTEwMjQiLCJoZWlnaHQiOiI8PTU3NiJ9XV19.8eX4uxD86YwCEe_It2T24xTDQ6mOqosnuQashYzBTnM");
-}
-*/

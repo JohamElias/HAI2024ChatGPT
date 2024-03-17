@@ -6,17 +6,7 @@ const {
 // Kalidokit provides a simple easing function
 // (linear interpolation) used for animation smoothness
 // you can use a more advanced easing function if you want
-const {
-    Face,
-    Vector: { lerp },
-    Utils: { clamp },
-} = Kalidokit;
-
-let is_moving_mouth=false;
-
-window.lerp = lerp;
 // Url to Live2D
-//const modelUrl = "../hiyori/models/hiyori/hiyori_pro_t10.model3.json";
 const modelUrl = "../hijiki/runtime/hijiki.model3.json";
 
 let currentModel;
@@ -36,16 +26,16 @@ const videoElement = document.querySelector(".input_video"),
 
     // load live2d model
     currentModel = await Live2DModel.from(modelUrl, { autoInteract: false });
-    currentModel.scale.set(0.5);
+    currentModel.scale.set(0.35);
     currentModel.interactive = true;
     currentModel.anchor.set(0.5, 0.5);
-    currentModel.position.set(window.innerWidth * 0.5, window.innerHeight * 1);
+    currentModel.position.set(window.innerWidth * 0.70, window.innerHeight * 0.5);
 
     // Add events to drag model
     currentModel.on("pointerdown", (e) => {
         currentModel.offsetX = e.data.global.x - currentModel.position.x;
         currentModel.offsetY = e.data.global.y - currentModel.position.y;
-        currentModel.dragging = false;
+        currentModel.dragging = true;
     });
     currentModel.on("pointerup", (e) => {
         currentModel.dragging = false;
@@ -68,11 +58,7 @@ const videoElement = document.querySelector(".input_video"),
 })();
 
 
-
-
 window.mover_boca = (x,y, lerpAmount = 0.7) => {
-
-
 
     const coreModel = currentModel.internalModel.coreModel;
 
@@ -84,7 +70,6 @@ window.mover_boca = (x,y, lerpAmount = 0.7) => {
             //lerp(y, coreModel.getParameterValueById("ParamMouthOpenY"), 0.3)
             (coreModel.getParameterValueById("PARAM_MOUTH_OPEN_Y") - y)*0.3 + y
         );
-        //
         // Adding 0.3 to ParamMouthForm to make default more of a "smile"
         // coreModel.setParameterValueById(
         //     "ParamMouthForm",
